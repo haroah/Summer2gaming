@@ -8,13 +8,13 @@ public class Playercontroller : MonoBehaviour
 {
     // Sirealize fields lets your edit private variables in the Unity Editor
     [SerializeField, Tooltip("How fast the player moves")]
-    private float _moveSpeed = 5.0f;
+    private float _moveSpeed = 10.0f;
 
     [SerializeField, Tooltip("The force which the player can jump")]
     private float _jumpForce = 10.0f;
     
     [SerializeField, Tooltip("The force which the player is pulled back to the ground")]
-    private float _gravity = 10.0f;
+    private float _gravity = 15.0f;
 
     [SerializeField, Tooltip("he CharactorController on this")]
     private CharacterController _pController;
