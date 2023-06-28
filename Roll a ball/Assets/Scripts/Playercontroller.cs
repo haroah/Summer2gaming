@@ -19,6 +19,8 @@ public class Playercontroller : MonoBehaviour
     [SerializeField, Tooltip("he CharactorController on this")]
     private CharacterController _pController;
 
+    private int _score; 
+
     // The Current direction the player is moving in
     private Vector3 _moveDirection;
 
@@ -26,6 +28,7 @@ public class Playercontroller : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        _score = 0; 
         // Assisting the var to the CharacterController on the player
        _pController = GetComponent<CharacterController>(); 
 
@@ -56,4 +59,20 @@ public class Playercontroller : MonoBehaviour
         }
     _pController.Move(_moveDirection * Time.deltaTime);
     }
+
+    private void OnTriggerEnter(Collider other)
+   {
+        switch (other.gameObject.tag)
+        {
+            case "Pickup":
+                Destroy(other.gameObject);
+                _score += 1;
+                break;
+
+            case "Enemy":
+                gameObject.SetActive(false);
+                break;
+        }
+   }
+
 }   
