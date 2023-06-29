@@ -10,19 +10,14 @@ public class Playercontroller : MonoBehaviour
     [SerializeField, Tooltip("How fast the player moves")]
     private float _moveSpeed = 10.0f;
 
-    [SerializeField, Tooltip("The force which the player can jump")]
-    private float _jumpForce = 10.0f;
-    
-    [SerializeField, Tooltip("The force which the player is pulled back to the ground")]
-    private float _gravity = 15.0f;
-
     [SerializeField, Tooltip("he CharactorController on this")]
     private CharacterController _pController;
 
     private int _score; 
 
     // The Current direction the player is moving in
-    private Vector3 _moveDirection;
+    public Vector3 _moveDirection;
+
 
 
     // Start is called before the first frame update
@@ -44,20 +39,9 @@ public class Playercontroller : MonoBehaviour
 
         movement = transform.TransformDirection(movement) * _moveSpeed; // Coverts the Vector3 from local space to world space
 
-        if (_pController.isGrounded) // If the player is on the ground ... 
-        {
-            _moveDirection = movement;
-
-            if (Input.GetButton("Jump"))  
-            {
-                _moveDirection.y = _jumpForce; // If the player hits the space bar while grounded ...
-            }
-            
-        } else
-        {
-            _moveDirection.y -= _gravity * Time.deltaTime;
-        }
-    _pController.Move(_moveDirection * Time.deltaTime);
+        _moveDirection = movement;
+       
+        _pController.Move(_moveDirection * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -70,6 +54,7 @@ public class Playercontroller : MonoBehaviour
                 break;
 
             case "Enemy":
+                FindObjectOfType<gameManager>().EndGame(); // Find the game manager and tell it to reset the scene
                 gameObject.SetActive(false);
                 break;
         }
