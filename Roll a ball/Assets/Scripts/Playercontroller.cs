@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(CharacterController))]
+// [RequireComponent(typeof(CharacterController))]
 public class Playercontroller : MonoBehaviour
 {
     // Sirealize fields lets your edit private variables in the Unity Editor
@@ -17,7 +17,6 @@ public class Playercontroller : MonoBehaviour
 
     // The Current direction the player is moving in
     public Vector3 _moveDirection;
-
 
 
     // Start is called before the first frame update
