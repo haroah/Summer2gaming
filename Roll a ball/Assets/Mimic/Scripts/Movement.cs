@@ -37,17 +37,17 @@ namespace MimicSpace
         public float chaseSpeedMin = 6;
         public float chaseSpeedMax = 12;
         ////
-        [SerializeField] private AudioSource noticeSoundEffect;
-        [SerializeField] private AudioSource hummingLoop;
-        [SerializeField] private AudioSource chaseMusic;
-        private bool canPlayNoticeSound = true;
+        //[SerializeField] private AudioSource noticeSoundEffect;
+        //[SerializeField] private AudioSource hummingLoop;
+        //[SerializeField] private AudioSource chaseMusic;
+        //private bool canPlayNoticeSound = true;
         ////
         [Space(10), Header("Chase Settings"), Space(10)]
         public GameObject playerTarget; // The Player object which the monster chases
         public float detectionRoadius = 10;
         public float killingRadius = 5;
         private NavMeshAgent _agent;
-        public LayerMask detectableLayers;
+        public LayerMask detectableLayers; // The layer that the palyer is on
         private void Start()
         {
             currentState = EnemyState.Patrolling;
@@ -58,9 +58,9 @@ namespace MimicSpace
         private IEnumerator Wandering()
         {
             Debug.Log("Wandering");
-            hummingLoop.Play();
-            canPlayNoticeSound = true;
-            chaseMusic.Stop();
+            //hummingLoop.Play();
+            //canPlayNoticeSound = true;
+            //chaseMusic.Stop();
             while (!PlayerInDetectionZone() && currentState == EnemyState.Patrolling)
             {
                 //change speed here
@@ -113,20 +113,14 @@ namespace MimicSpace
             Debug.Log("Chasing");
             _agent.speed = Random.Range(chaseSpeedMin, chaseSpeedMax);
                 // Checking if the private bool variable is true
-            if (canPlayNoticeSound)
-            {
-                // Do something when isActivated is true
-                canPlayNoticeSound = false;
-                noticeSoundEffect.Play();
-                chaseMusic.Play();
-            }
+           
             while (PlayerInDetectionZone() && currentState == EnemyState.ChasingPlayer)
             {
                 _agent.SetDestination(playerTarget.transform.position);
                 if (Physics.CheckSphere(transform.position, killingRadius, detectableLayers)) //Check if the player is in killing range or not
                 {
-                    //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                    FindObjectOfType<GameManager>().EndGame();//Find GameManafer and reset the scene
+                   gameManager.Instance.EndGame();
+                   playerTarget.GetComponent<FirstPersonController>().Die();
                 }
                 yield return null;
             }
