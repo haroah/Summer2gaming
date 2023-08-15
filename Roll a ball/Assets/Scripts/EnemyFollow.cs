@@ -38,11 +38,17 @@ public class EnemyFollow : MonoBehaviour
     {
         currentState = EnemyState.Patrolling;
         _Agent = GetComponent<NavMeshAgent>();
+        StartCoroutine(Patrol());
+       // transform.LookAt(patrolPoints[patrolIndex].position);
+        Vector3 patrolDirection = patrolPoints[patrolIndex].position - transform.position;
+        transform.rotation = Quaternion.LookRotation(patrolDirection);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        transform.rotation = Quaternion.LookRotation(transform.position - target.position);
         if(PlayerInDetection() && currentState != EnemyState.Chasing)
         {
             // enemy follow player
@@ -53,8 +59,8 @@ public class EnemyFollow : MonoBehaviour
         {
             // enemy patolls
             currentState = EnemyState.Patrolling;
-            StopCoroutine(ChasePlayer());
-            StartCoroutine(ChasePlayer());
+            StopCoroutine(Patrol());
+            StartCoroutine(Patrol());
         }
     }
 
@@ -78,11 +84,13 @@ public class EnemyFollow : MonoBehaviour
             // Move to location
             _Agent.SetDestination(patrolPoints[patrolIndex].position);
             // Wait for Spider to reach patrol point
-            while (Vector3.Distance(transform.position, patrolPoints[patrolIndex].position) > 1)
+            while (Vector3.Distance(transform.position, patrolPoints[patrolIndex].position) >= 1.0)
                 yield return null;
+            Vector3 patrolDirection = patrolPoints[patrolIndex].position - transform.position;
+            transform.rotation = Quaternion.LookRotation(patrolDirection);
+
             // Has reached its point, now it needs to wait
             yield return new WaitForSeconds(Random.Range(minWaittime, maxWaittime));
-
 
             yield return null;
        }

@@ -312,7 +312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &732481808563313423
 Transform:
   m_ObjectHideFlags: 0
@@ -322,7 +322,7 @@ Transform:
   m_GameObject: {fileID: 613590579652342555}
   m_LocalRotation: {x: -0.26725614, y: -0.21140528, z: -0.6944727, w: 0.6337111}
   m_LocalPosition: {x: 0.017153924, y: 0.007064688, z: 0.00049810327}
-  m_LocalScale: {x: 1, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6052690219841105532}
@@ -407,7 +407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5662903463982992957
 Transform:
   m_ObjectHideFlags: 0
@@ -417,7 +417,7 @@ Transform:
   m_GameObject: {fileID: 745277659810685938}
   m_LocalRotation: {x: -0.20902257, y: 0.09596188, z: 0.8201872, w: 0.5238261}
   m_LocalPosition: {x: -0.014777725, y: -0.0134535385, z: 0.0006304857}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5760120983598902786}
@@ -439,7 +439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5478898011438203719
 Transform:
   m_ObjectHideFlags: 0
@@ -449,7 +449,7 @@ Transform:
   m_GameObject: {fileID: 885036780037808929}
   m_LocalRotation: {x: -0.26725614, y: 0.21140528, z: 0.6944727, w: 0.6337111}
   m_LocalPosition: {x: -0.014770266, y: 0.0073795808, z: 0.0004968965}
-  m_LocalScale: {x: 1, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3111972620103766887}
@@ -630,7 +630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6192683817370733825
 Transform:
   m_ObjectHideFlags: 0
@@ -640,7 +640,7 @@ Transform:
   m_GameObject: {fileID: 1584331328547546476}
   m_LocalRotation: {x: -0.2836025, y: -0.21372604, z: -0.69799685, w: 0.621845}
   m_LocalPosition: {x: 0.017224634, y: -0.001704245, z: 0.0007461001}
-  m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8788606413472147970}
@@ -1159,14 +1159,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2423048355108275226}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8349397572283510614}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!137 &3432335066610188567
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -1175,8 +1175,8 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2423048355108275226}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -1270,7 +1270,7 @@ SkinnedMeshRenderer:
   m_RootBone: {fileID: 8840229449217482577}
   m_AABB:
     m_Center: {x: -0.0001108367, y: 0.0058100005, z: -0.002992536}
-    m_Extent: {x: 0.019751735, y: 0.016723443, z: 0.0102182}
+    m_Extent: {x: 0.015, y: 0.013, z: 0.009}
   m_DirtyAABB: 0
 --- !u!1 &2433615274414352106
 GameObject:
@@ -1613,7 +1613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6697243852857008909
 Transform:
   m_ObjectHideFlags: 0
@@ -1623,7 +1623,7 @@ Transform:
   m_GameObject: {fileID: 3479094872185506320}
   m_LocalRotation: {x: -0.26294714, y: 0.07200653, z: 0.74609166, w: 0.60747105}
   m_LocalPosition: {x: -0.018561574, y: -0.0094847595, z: 0.00016898512}
-  m_LocalScale: {x: 1.0000001, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3879551675912174179}
@@ -2016,7 +2016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4480668038532825314
 Transform:
   m_ObjectHideFlags: 0
@@ -2026,7 +2026,7 @@ Transform:
   m_GameObject: {fileID: 4063220544096034996}
   m_LocalRotation: {x: -0.26294714, y: -0.07200653, z: -0.74609166, w: 0.60747105}
   m_LocalPosition: {x: 0.017061092, y: -0.00942986, z: 0.0006275606}
-  m_LocalScale: {x: 1.0000001, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3335514996607652507}
@@ -2048,7 +2048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4348743587800041433
 Transform:
   m_ObjectHideFlags: 0
@@ -2058,7 +2058,7 @@ Transform:
   m_GameObject: {fileID: 4090325334138486225}
   m_LocalRotation: {x: -0.2836025, y: 0.21372607, z: 0.69799685, w: 0.621845}
   m_LocalPosition: {x: -0.018411115, y: -0.0006137408, z: 0.0003690341}
-  m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3618117281204311372}
@@ -2965,7 +2965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7535620037480275791
 Transform:
   m_ObjectHideFlags: 0
@@ -2975,7 +2975,7 @@ Transform:
   m_GameObject: {fileID: 7099537366198588150}
   m_LocalRotation: {x: 0.3424014, y: 0.18424213, z: 0.79296494, w: -0.46906587}
   m_LocalPosition: {x: 0.017004445, y: -0.01571401, z: 0.00012470648}
-  m_LocalScale: {x: 1, y: 1.0000001, z: 1.0000001}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7061359333929251397}

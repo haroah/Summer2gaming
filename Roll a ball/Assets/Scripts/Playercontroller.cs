@@ -22,6 +22,7 @@ public class Playercontroller : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        Debug.Log("Play");
         _score = 0; 
         // Assisting the var to the CharacterController on the player
        _pController = GetComponent<CharacterController>(); 
