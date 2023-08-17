@@ -23,7 +23,7 @@ public class FirstPersonController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         UpdateMouseLook();
         UpdateMovement();
@@ -39,9 +39,9 @@ public class FirstPersonController : MonoBehaviour
 
     public void Die()
     {
-        Cursor.lockState = CursorLockMode.Locked; // Unlock the mouse
-        Cursor.visible = false;                   // Make the mosue visible
-        this.enabled = false;                     // Disbale this script
+        Cursor.lockState = CursorLockMode.None; // Unlock the mouse
+        Cursor.visible = true;                  // Make the mosue visible
+        this.enabled = false;                   // Disbale this script
     }
 
 
@@ -53,5 +53,19 @@ public class FirstPersonController : MonoBehaviour
         Vector3 velocity = (transform.forward * inputDir.y + transform.right *  inputDir.x) * walkspeed;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "key fragments")
+        {
+            other.gameObject.SetActive(false);
+            gameManager.Instance.IncreaseKeyCount();
+        }
+        
+        if (other.gameObject.tag == "goal Door")
+        {
+           gameManager.Instance.CheckEndGame();
+        }
     }
 }
