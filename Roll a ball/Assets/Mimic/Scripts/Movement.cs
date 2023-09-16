@@ -16,6 +16,7 @@ namespace MimicSpace
     /// </summary>
     public class Movement : MonoBehaviour
     {
+        [SerializeField] private GameObject _player;
         [Header("Mimic Settings"), Space(10)]
         public EnemyState currentState;
         [Tooltip("Body Height from ground")]
@@ -28,26 +29,14 @@ namespace MimicSpace
         [Space(10), Header("Patrol Settings"), Space(10)]
         public List<Transform> patrolPoints;
         [SerializeField] private int patrolIndex; // The current index of the partol point this is following READ ONLY
-        public float minPatrolWaitTime;
-        public float maxPatrolWaitTime;
-        ////////////
-        public float minPatrolSpeed = 5;
-        public float maxPatrolSpeed = 30;
-        ///////////
-        public float chaseSpeedMin = 6;
-        public float chaseSpeedMax = 12;
-        ////
-        //[SerializeField] private AudioSource noticeSoundEffect;
-        //[SerializeField] private AudioSource hummingLoop;
-        //[SerializeField] private AudioSource chaseMusic;
-        //private bool canPlayNoticeSound = true;
-        ////
+
         [Space(10), Header("Chase Settings"), Space(10)]
         public GameObject playerTarget; // The Player object which the monster chases
         public float detectionRoadius = 10;
         public float killingRadius = 5;
         private NavMeshAgent _agent;
         public LayerMask detectableLayers; // The layer that the palyer is on
+        public LayerMask wallayers; // Layer for all walls
         private void Start()
         {
             currentState = EnemyState.Patrolling;
@@ -58,25 +47,20 @@ namespace MimicSpace
         private IEnumerator Wandering()
         {
             Debug.Log("Wandering");
-            //hummingLoop.Play();
-            //canPlayNoticeSound = true;
-            //chaseMusic.Stop();
-            while (!PlayerInDetectionZone() && currentState == EnemyState.Patrolling)
+
+            while (!PlayerInLineOfSight() && currentState == EnemyState.Patrolling)
             {
-                //change speed here
-                //print(“New Point”);
-                _agent.speed = Random.Range(minPatrolSpeed, maxPatrolSpeed);
-                //print(_agent.speed);
                 //generate a random index to patrol to
                 int patrol = Random.Range(0, patrolPoints.Count);
                 patrolIndex = patrol;
+
                 //Patrol to the next point in our list:
                 _agent.SetDestination(patrolPoints[patrolIndex].position);
                 //Wait for the enemy to reach the patrol point
-                while (Vector3.Distance(transform.position, patrolPoints[patrolIndex].position) > 1)
+                while (Vector3.Distance(transform.position, patrolPoints[patrolIndex].position) > 2)
                     yield return null;
                 //wait for some time
-                yield return new WaitForSeconds(Random.Range(minPatrolWaitTime, maxPatrolWaitTime));
+                // yield return new WaitForSeconds(Random.Range(minPatrolWaitTime, maxPatrolWaitTime));
             }
             // If the player is detected or the state has changed, switch to chasing player
             currentState = EnemyState.ChasingPlayer;
@@ -85,18 +69,20 @@ namespace MimicSpace
         void Update()
         {
             // Switch states if needed
-            if (PlayerInDetectionZone() && currentState == EnemyState.Patrolling)
+            if (PlayerInLineOfSight() && currentState == EnemyState.Patrolling)
             {
                 currentState = EnemyState.ChasingPlayer;
                 StopCoroutine(Wandering());
                 StartCoroutine(ChasePlayer());
             }
-            else if (!PlayerInDetectionZone() && currentState == EnemyState.ChasingPlayer)
+
+            if (!PlayerInLineOfSight() && currentState == EnemyState.ChasingPlayer)
             {
                 currentState = EnemyState.Patrolling;
                 StopCoroutine(ChasePlayer());
                 StartCoroutine(Wandering());
             }
+
             //velocity = Vector3.Lerp(velocity, new Vector3(Input.GetAxisRaw(“Horizontal”), 0, Input.GetAxisRaw(“Vertical”)).normalized * speed, velocityLerpCoef * Time.deltaTime);
             velocity = Vector3.Lerp(velocity, _agent.velocity.normalized * speed, velocityLerpCoef * Time.deltaTime);
             // Assigning velocity to the mimic to assure great leg placement
@@ -108,13 +94,14 @@ namespace MimicSpace
                 destHeight = new Vector3(transform.position.x, hit.point.y + height, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, destHeight, velocityLerpCoef * Time.deltaTime);
         }
+
+
         private IEnumerator ChasePlayer()
         {
             Debug.Log("Chasing");
-            _agent.speed = Random.Range(chaseSpeedMin, chaseSpeedMax);
                 // Checking if the private bool variable is true
            
-            while (PlayerInDetectionZone() && currentState == EnemyState.ChasingPlayer)
+            while (PlayerInLineOfSight() && currentState == EnemyState.ChasingPlayer)
             {
                 _agent.SetDestination(playerTarget.transform.position);
                 if (Physics.CheckSphere(transform.position, killingRadius, detectableLayers)) //Check if the player is in killing range or not
@@ -133,6 +120,27 @@ namespace MimicSpace
             // Returns true if the player is within the detection radius
             return Physics.CheckSphere(transform.position, detectionRoadius, 1 << 6);
         }
+
+        private bool PlayerInLineOfSight()
+        {
+            // Calculate the direction from the enemy to the player
+            Vector3 directionToPlayer = _player.transform.position - transform.position;
+
+            // Create a ray starting from the enemy position in direction of the player
+            Ray LineOfSight = new Ray(transform.position, directionToPlayer);
+
+            // Set a max range for the raycast to avoid hitting anything beyond the player
+            float maxRaycastDistance = directionToPlayer.magnitude;
+
+            Debug.DrawRay(transform.position, directionToPlayer,  Color.red);
+             // if the Ray does not hit a wall, meaning the player is not in sight
+            if(!Physics.Raycast(LineOfSight, out RaycastHit rayHit, maxRaycastDistance, wallayers))
+            {
+                // Return true if player is in sight
+                return true;
+            } else return false;
+        }
+
         void OnDrawGizmosSelected()
         {
             // Display the explosion radius when selected
@@ -141,5 +149,7 @@ namespace MimicSpace
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, killingRadius);
         }
+
+
     }
 }
